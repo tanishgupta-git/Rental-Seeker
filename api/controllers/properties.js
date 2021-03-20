@@ -1,3 +1,4 @@
+const Property = require('../models/property');
 const properties = [
     {     id : 1,
           imageUrl:"https://cdn.pixabay.com/photo/2016/11/29/03/53/architecture-1867187_1280.jpg", 
@@ -25,4 +26,18 @@ exports.getProperty = (req,res,next) => {
         message : 'fetched Successfully',
         property : property
     })
+}
+
+exports.addProperty = async (req,res,next) => {
+    const property = new Property({
+        title : req.body.title,
+        imageUrl : req.body.imageUrl,
+        description : req.body.description,
+        price : req.body.price,
+        rating : req.body.rating  
+    });
+   await property.save();
+   res.status(200).json({
+       message : 'Added Property'
+   })
 }
