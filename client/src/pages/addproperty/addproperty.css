@@ -1,0 +1,29 @@
+.add-property {
+    width:90%;
+    max-width:900px;
+    margin:0 auto;
+}
+.error-form {
+    color: red;
+}
+.formInput input,.formInput textarea{
+    width:90%;
+    padding: 5px;
+}
+.formInput p{
+ margin:20px 0 10px 0px;
+}
+form input[type='submit'] {
+    background-color: black;
+    color: white;
+    border:1px solid black;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 10px 20px; 
+    margin:10px 0;
+    transition: 0.3s;
+}
+form input[type='submit']:hover {
+    background-color: white;
+    color: black;
+}

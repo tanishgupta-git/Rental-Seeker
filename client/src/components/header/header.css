@@ -1,9 +1,14 @@
 .header {
     background-color: #1a1a1a;
+    display: flex;
     padding: 10px;
 }
 .header h1 {
     color: white;
     font-family: sans-serif;
     margin: 0;
+}
+.header a {
+    color: white;
+    margin-left: 20px;
 }

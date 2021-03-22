@@ -29,15 +29,19 @@ exports.getProperty = (req,res,next) => {
 }
 
 exports.addProperty = async (req,res,next) => {
+    console.log(req.body);
     const property = new Property({
         title : req.body.title,
         imageUrl : req.body.imageUrl,
         description : req.body.description,
-        price : req.body.price,
-        rating : req.body.rating  
+        price : req.body.price
     });
+   try {
    await property.save();
    res.status(200).json({
        message : 'Added Property'
-   })
+   }) }
+   catch (err) {
+       console.log(err);
+   }
 }
