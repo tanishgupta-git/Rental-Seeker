@@ -11,13 +11,13 @@ useEffect(() => {
          return res.json()
      }
  ).then((resData) => {
-    Setdetail(resData.property[0]);
+    Setdetail(resData.property);
  })
 },[match.params.propertyId])
  return (
      <div className="property-detail">
         <h1>{detail.title}</h1>
-        <img src={detail.imageUrl} alt=""/>
+        <img src={"http://localhost:5000/" + detail.imageUrl} alt=""/>
         <h2>{detail.price}</h2>
      </div>
  )

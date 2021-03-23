@@ -1,27 +1,16 @@
 const Property = require('../models/property');
-const properties = [
-    {     id : 1,
-          imageUrl:"https://cdn.pixabay.com/photo/2016/11/29/03/53/architecture-1867187_1280.jpg", 
-          title:"George House Norway",
-          price:"4000",
-          rating:"4.2"
-    },
-    {     id: 2,
-          imageUrl:"https://cdn.pixabay.com/photo/2016/01/19/17/08/vintage-1149558_1280.jpg",
-          title:"Mac Sweet Home",
-          price:"3500",
-          rating:"4.0"
-    }
-]
-exports.getProperties = (req,res,next) => {
+const { validationResult } = require('express-validator/check');
+
+exports.getProperties =async (req,res,next) => {
+    const properties = await Property.find();
     res.status(200).json({
         message : 'Fetched Succesfully',
         properties:properties
     })
 }
-exports.getProperty = (req,res,next) => {
+exports.getProperty =async (req,res,next) => {
     const propertyId = req.params.propertyId;
-    const property = properties.filter( property => property.id === Number(propertyId));
+    const property =await Property.findById(propertyId);
     res.status(200).json({
         message : 'fetched Successfully',
         property : property
@@ -29,10 +18,22 @@ exports.getProperty = (req,res,next) => {
 }
 
 exports.addProperty = async (req,res,next) => {
-    console.log(req.body);
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        const error = new Error('Validation failed,entered data is incorrect');
+        error.statusCode = 422;
+        return next(error);
+    }
+    if (!req.file) {
+        const error = new Error("No image provided");
+        error.statusCode = 422;
+        throw error;
+    }
+
+    const imageUrl = req.file.path.replace(/\\/g ,"/");
     const property = new Property({
         title : req.body.title,
-        imageUrl : req.body.imageUrl,
+        imageUrl : imageUrl,
         description : req.body.description,
         price : req.body.price
     });
@@ -42,6 +43,17 @@ exports.addProperty = async (req,res,next) => {
        message : 'Added Property'
    }) }
    catch (err) {
-       console.log(err);
+    if(! err.statusCode) {
+        err.statusCode = 500
+    }
+     next(err);
    }
 }
+// function for clear image
+const clearImage = filePath => {
+    filePath = path.join(__dirname,'..',filePath);
+    fs.unlink(filePath,err => {
+        console.log(err);
+    })
+  }
+  

@@ -17,7 +17,7 @@ const HomePage = () => {
         <div className="card-container">
         {
           properties.map( property => (
-            <Card key={property.id} {...property}/>
+            <Card key={property._id} {...property}/>
           ))
         }
         </div>
