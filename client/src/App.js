@@ -2,9 +2,12 @@ import React from 'react';
 import { Switch,Route } from 'react-router';
 import './App.css';
 import Header from './components/header/header';
-import AddProperty from './pages/addproperty/addproperty';
-import HomePage from './pages/homepage/homepage';
-import PropertyDetail from './pages/propertydetail/PropertyDetail.jsx';
+import AddProperty from './pages/addProperty/addProperty';
+import Signin from './pages/signin/signin';
+import HomePage from './pages/homePage/homePage';
+import PropertyDetail from './pages/propertyDetail/propertyDetail.jsx';
+import HostSignin from './pages/hostSignin/hostSignin.jsx';
+
 function App() {
   return (
     <div className="App">
@@ -12,6 +15,8 @@ function App() {
     <Switch>
      <Route path='/properties/:propertyId' component={PropertyDetail}/>
      <Route path='/add-property' component={AddProperty}/>
+     <Route path='/host-signin' component={HostSignin} />
+     <Route path='/signin' component={Signin} />
      <Route path='/' component={HomePage}/>
     </Switch>
     </div>

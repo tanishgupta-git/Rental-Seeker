@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import './homepage.css';
+import './homePage.css';
 import Card from '../../components/card/card';
 const HomePage = () => {
    const [properties,Setproperties] = useState([]);

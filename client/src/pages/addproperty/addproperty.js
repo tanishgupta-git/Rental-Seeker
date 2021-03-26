@@ -1,6 +1,9 @@
 import React,{useState} from 'react';
 import { withRouter } from 'react-router-dom';
-import './addproperty.css';
+import Button from '../../components/shared/button/button';
+import Input from '../../components/shared/input/input';
+import Textarea from '../../components/shared/textarea/textarea';
+import './addProperty.css';
 
 const AddProperty = ({history}) => {
 const [title,Settitle] = useState('');
@@ -68,28 +71,18 @@ const handleForm = (e) => {
   })
 }
  return (
-     <div className='add-property'>
+     <div className='centerForm'>
      <h1>Add Property</h1>
       <p className='error-form'>{error}</p>
        <form onSubmit={handleForm}>
-         <div className='formInput'>
-           <p>Title</p>
-           <input type="text" name='title' value={title} onChange={(e) => Settitle(e.target.value)}/>
-         </div>
-         <div className='formInput'>
-          <p>ImageUrl</p>
-           <input type="file" name='imageUrl' onChange={handleChange}/>
-         </div>
-         <div className='formInput'>
-         <p>Price</p>
-           <input type="number" name='price' value={price} onChange={(e) => Setprice(e.target.value)}/>
-         </div>
-         <div className='formInput'>
-           <p>Description</p>
-           <textarea rows="5" name='description' value={description} onChange={(e) => Setdescription(e.target.value)}>
-           </textarea>
-         </div>
-        <input type='submit' value='Submit' />
+     
+        <Input label="Title" type='text' name="title" value={title} handleChange={(e) => Settitle(e.target.value)}/>    
+ 
+         <Input label="ImageUrl" type='file' name="imageUrl" handleChange={handleChange}/>
+    
+         <Input label="Price" type="text" name="price" value={price} handleChange={(e) => Setprice(e.target.value)}/>
+         <Textarea label="Description" name='description' value={description} handleChange={(e) => Setdescription(e.target.value)}/>
+         <Button />
        </form>
      </div>
  )

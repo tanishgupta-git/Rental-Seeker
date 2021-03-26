@@ -6,8 +6,10 @@ import './header.css';
 const Header = () => {
     return (
         <nav className="header">
-         <h1>Rental Seeker</h1>
+         <Link to='/' className='logo'>Rental Seeker</Link>
          <Link to='/add-property'>Add Property</Link>
+         <Link to='/host-signin'>Become a host</Link>
+         <Link to='/signin'>Login</Link>
         </nav>
     )
 }

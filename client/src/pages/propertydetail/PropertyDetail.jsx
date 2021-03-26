@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import { withRouter } from 'react-router';
 
-import './PropertyDetail.css';
+import './propertyDetail.css';
 
 const PropertyDetail = ({match}) => {
 const [detail,Setdetail] = useState({});

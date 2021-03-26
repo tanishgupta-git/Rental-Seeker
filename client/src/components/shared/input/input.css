@@ -1,0 +1,7 @@
+.Input input[type='text'],.Input input[type='email'],.Input input[type='password']{
+    width:90%;
+    padding: 5px;
+}
+.Input p{
+ margin:20px 0 10px 0px;
+}

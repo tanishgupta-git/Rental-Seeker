@@ -1,0 +1,14 @@
+.form--Button {
+    background-color: black;
+    color: white;
+    border:1px solid black;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 10px 20px; 
+    margin:10px 0;
+    transition: 0.3s;
+}
+.form--Button:hover {
+    background-color: white;
+    color: black;
+}
