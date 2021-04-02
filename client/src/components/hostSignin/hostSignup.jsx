@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
 import Input from '../shared/input/input';
 import Button from '../shared/button/button';
+import { Link } from 'react-router-dom';
 
-function HostSignup({Setsignup}){
+function HostSignup(){
     const [username,Setusername] = useState("");
     const [email,Setemail] = useState("");
     const [password,Setpassword] = useState("");
@@ -17,7 +18,7 @@ function HostSignup({Setsignup}){
             <Input label='Confirm Password' type='password' name='confirmPassword' value={confirmPassword} handleChange={(e) => {SetconfirmPassword(e.target.value)}}/>
             <Button />
             </form>
-            Already Have an account? <button onClick={() => {Setsignup(false)}}>Sign In!</button>
+            Already Have an account? <Link to='/host/login' >Sign In!</Link>
         </div>
     )
 }

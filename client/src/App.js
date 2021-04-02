@@ -15,8 +15,8 @@ function App() {
     <Switch>
      <Route path='/properties/:propertyId' component={PropertyDetail}/>
      <Route path='/add-property' component={AddProperty}/>
-     <Route path='/host-signin' component={HostSignin} />
-     <Route path='/signin' component={Signin} />
+     <Route path='/host' component={HostSignin} />
+     <Route path='/user' component={Signin} />
      <Route path='/' component={HomePage}/>
     </Switch>
     </div>

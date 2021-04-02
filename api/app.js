@@ -5,6 +5,7 @@ const app = express();
 const moongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const propertiesRoutes = require('./routes/properties');
+const authRoutes = require('./routes/auth');
 const MONGODB_URI = process.env.MONGODB_URI
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
@@ -40,7 +41,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
   });
-
+app.use('/auth',authRoutes);
 app.use('/properties',propertiesRoutes);
 app.use((error,req,res,next) => {
   console.log(error);

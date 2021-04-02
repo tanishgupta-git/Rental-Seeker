@@ -1,17 +1,14 @@
-import React,{useState} from 'react';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import Signup from '../../components/Signin/signup';
 import Login from '../../components/Signin/signin';
 import './signin.css';
 
 const Signin = () => {
-    const [signup,Setsignup] = useState(false);
     return (
-    <div className='centerForm'>
-        { signup ? 
-          <Signup Setsignup={Setsignup} />
-          : <Login Setsignup={Setsignup} />
-        }
- 
+    <div className='centerForm'> 
+          <Route path='/user/signup' component={Signup}/>
+          <Route path='/user/login' component={Login} />
     </div>
     )
 }

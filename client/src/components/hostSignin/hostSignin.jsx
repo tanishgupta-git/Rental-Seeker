@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
 import Input from '../shared/input/input';
 import Button from '../shared/button/button';
+import { Link } from 'react-router-dom';
 
-function HostSignin({Setsignup}) {
+function HostSignin() {
     const [username,Setusername] = useState("");
     const [password,Setpassword] = useState("");
     return (
@@ -13,7 +14,7 @@ function HostSignin({Setsignup}) {
             <Input label='Password' type='password' name='password' value={password} handleChange={(e) => {Setpassword(e.target.value)}}/>
             <Button />
             </form>
-            Don't Have an account? <button onClick={() => {Setsignup(true)}}>Sign up!</button>
+            Don't Have an account? <Link to='/host/signup' >Sign up!</Link>
         </div>
     )
 }

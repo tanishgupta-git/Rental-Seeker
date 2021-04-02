@@ -2,19 +2,36 @@ const Property = require('../models/property');
 const { validationResult } = require('express-validator/check');
 
 exports.getProperties =async (req,res,next) => {
+
+    try {
     const properties = await Property.find();
     res.status(200).json({
         message : 'Fetched Succesfully',
         properties:properties
     })
+   }catch (err) {
+    if(! err.statusCode) {
+        err.statusCode = 500
+    }
+     next(err);
+   }
+   
 }
 exports.getProperty =async (req,res,next) => {
     const propertyId = req.params.propertyId;
+    try {
     const property =await Property.findById(propertyId);
     res.status(200).json({
         message : 'fetched Successfully',
         property : property
     })
+   }   catch (err) {
+    if(! err.statusCode) {
+        err.statusCode = 500
+    }
+     next(err);
+   }
+
 }
 
 exports.addProperty = async (req,res,next) => {
@@ -27,7 +44,7 @@ exports.addProperty = async (req,res,next) => {
     if (!req.file) {
         const error = new Error("No image provided");
         error.statusCode = 422;
-        throw error;
+        return next(error);
     }
 
     const imageUrl = req.file.path.replace(/\\/g ,"/");
