@@ -3,7 +3,7 @@ import Input from '../shared/input/input';
 import Button from '../shared/button/button';
 import { Link } from 'react-router-dom';
 
-function HostSignin() {
+function HostSignin({Setuser}) {
     const [username,Setusername] = useState("");
     const [password,Setpassword] = useState("");
     const [error,Seterror] = useState("");
@@ -24,7 +24,7 @@ function HostSignin() {
         }).then((res) => {
           return res.json()
         }).then((resData) => {
-           console.log(resData);
+           Setuser(resData);
         }).catch( err => {
             console.log(err);
         })

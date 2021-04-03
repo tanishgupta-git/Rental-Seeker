@@ -62,7 +62,7 @@ exports.userLogin = async (req,res,next) => {
    { expiresIn: '1h' }
  );
 
- res.status(200).json({ token: token, userId: loadedUser._id.toString(),name:loadedUser.name });
+ res.status(200).json({ token: token, userId: loadedUser._id.toString(),typeOfuser:"User"});
  } catch (err) {
     if(! err.statusCode) {
         err.statusCode = 500
@@ -129,7 +129,7 @@ exports.hostLogin = async (req,res,next) => {
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({message:"Host Login Successfully",token:token,host:host,type:"Host"})
+    res.status(200).json({userId:loadedHost._id.toString(),token:token,typeOfuser:"Host"})
 
     } catch (err) {
        if(! err.statusCode) {

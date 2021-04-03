@@ -3,7 +3,7 @@ import Input from '../shared/input/input';
 import Button from '../shared/button/button';
 import { Link } from 'react-router-dom';
 
-function SignUp() {
+const UserSignup = () => {
     const [username,Setusername] = useState("");
     const [email,Setemail] = useState("");
     const [password,Setpassword] = useState("");
@@ -57,4 +57,4 @@ function SignUp() {
     )
 }
 
-export default SignUp
+export default UserSignup;

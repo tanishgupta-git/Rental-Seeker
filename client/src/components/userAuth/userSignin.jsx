@@ -3,7 +3,7 @@ import Input from '../shared/input/input';
 import Button from '../shared/button/button';
 import { Link } from 'react-router-dom';
 
-function SignIn() {
+function UserSignin({Setuser}) {
     const [username,Setusername] = useState("");
     const [password,Setpassword] = useState("");
     const [error,Seterror] = useState("");
@@ -25,7 +25,7 @@ function SignIn() {
         }).then((res) => {
           return res.json()
         }).then((resData) => {
-           console.log(resData);
+            Setuser(resData)
         }).catch( err => {
             console.log(err);
         })
@@ -46,4 +46,4 @@ function SignIn() {
     )
 }
 
-export default SignIn
+export default UserSignin;
