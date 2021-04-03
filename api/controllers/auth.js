@@ -122,8 +122,8 @@ exports.hostLogin = async (req,res,next) => {
     }
     const token = jwt.sign(
       {
-        email: loadedUser.email,
-        userId: loadedUser._id.toString()
+        email: loadedHost.email,
+        userId: loadedHost._id.toString()
       },
       'somesupersecretsecret',
       { expiresIn: '1h' }

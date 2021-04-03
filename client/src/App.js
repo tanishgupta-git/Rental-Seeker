@@ -8,15 +8,16 @@ import HomePage from './pages/homePage/homePage';
 import PropertyDetail from './pages/propertyDetail/propertyDetail.jsx';
 import HostSignin from './pages/hostSignin/hostSignin.jsx';
 
-function App() {
+function App(){ 
+
   return (
     <div className="App">
     <Header />
     <Switch>
-     <Route path='/properties/:propertyId' component={PropertyDetail}/>
-     <Route path='/add-property' component={AddProperty}/>
      <Route path='/host' component={HostSignin} />
      <Route path='/user' component={Signin} />
+     <Route path='/add-property' component={AddProperty}/>
+     <Route path='/properties/:propertyId' component={PropertyDetail}/>
      <Route path='/' component={HomePage}/>
     </Switch>
     </div>

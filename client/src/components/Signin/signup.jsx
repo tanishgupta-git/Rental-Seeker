@@ -34,7 +34,9 @@ function SignUp() {
             'Content-Type':'application/json'
         }
     }).then((res) => {
-      console.log(res);
+       return res.json()    
+    }).then((resData) => {
+        console.log(resData);
     }).catch( err => {
         console.log(err);
     })
