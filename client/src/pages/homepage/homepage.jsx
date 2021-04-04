@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import './homePage.css';
 import Card from '../../components/card/card';
-const HomePage = () => {
+const HomePage = ({user}) => {
    const [properties,Setproperties] = useState([]);
     useEffect(() => {
      fetch('http://localhost:5000/properties').then((resData) => {

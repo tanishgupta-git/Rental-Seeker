@@ -1,5 +1,6 @@
 const Property = require('../models/property');
 const { validationResult } = require('express-validator/check');
+const Host = require('../models/host');
 
 exports.getProperties =async (req,res,next) => {
 
@@ -52,13 +53,19 @@ exports.addProperty = async (req,res,next) => {
         title : req.body.title,
         imageUrl : imageUrl,
         description : req.body.description,
-        price : req.body.price
+        price : req.body.price,
+        host:req.userId
     });
    try {
    await property.save();
+   const host = await Host.findById(req.userId);
+   host.properties.push(property);
+   await host.save();
    res.status(200).json({
        message : 'Added Property'
-   }) }
+   }) 
+   }
+
    catch (err) {
     if(! err.statusCode) {
         err.statusCode = 500

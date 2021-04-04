@@ -24,6 +24,14 @@ function HostSignin({Setuser}) {
         }).then((res) => {
           return res.json()
         }).then((resData) => {
+            localStorage.setItem('token', resData.token);
+            localStorage.setItem('userId', resData.userId);
+            localStorage.setItem('typeOfuser', resData.typeOfuser);
+            const remainingMilliseconds = 60 * 60 * 1000;
+            const expiryDate = new Date(
+              new Date().getTime() + remainingMilliseconds
+            );
+            localStorage.setItem('expiryDate', expiryDate.toISOString());
            Setuser(resData);
         }).catch( err => {
             console.log(err);

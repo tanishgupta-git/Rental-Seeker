@@ -1,17 +1,26 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { withRouter } from 'react-router-dom';
 import Button from '../../components/shared/button/button';
 import Input from '../../components/shared/input/input';
 import Textarea from '../../components/shared/textarea/textarea';
 import './addProperty.css';
 
-const AddProperty = ({history}) => {
+const AddProperty = ({history,user}) => {
 const [title,Settitle] = useState('');
 const [image,Setimage] = useState('');
 const [price,Setprice] = useState('');
 const [description,Setdescription] = useState('');
 const [error,Seterror] = useState('');
 const types = ['image/png','image/jpeg','image/jpg'];
+
+useEffect(() => {
+ if(!user.token) {
+   history.push('/')
+ }
+ if(user.typeOfuser !== 'Host'){
+   history.push('/')
+ }
+},[user,history])
 // function for handling the chnages in image
 const handleChange = (e) => {
   let selected = e.target.files[0];
@@ -55,7 +64,11 @@ const handleForm = (e) => {
   formData.append('image', image);
   fetch('http://localhost:5000/properties/add-property',{
     method : 'POST',
-    body : formData
+    body : formData,
+    headers : 
+    {
+        Authorization : 'Bearer ' + user.token         
+      } 
   }).then(res => {
     if (res.status !== 200) {
       throw new Error('Failed to add Property.');

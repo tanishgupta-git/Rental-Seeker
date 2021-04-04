@@ -22,6 +22,11 @@ const propertySchema = new Schema(
         rating : {
            type : Number,
            default : 0
+        },
+        host : {
+          type:Schema.Types.ObjectId,
+          ref:'Host',
+          required:true
         }
       },
       { timestamps: true }

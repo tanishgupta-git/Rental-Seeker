@@ -29,8 +29,8 @@ useEffect(()=> {
     return;
   }
   const userId = localStorage.getItem('userId');
-  const username = localStorage.getItem('username');
-  Setuser({userId : userId,token : token,username : username}); 
+  const typeOfuser = localStorage.getItem('typeOfuser');
+  Setuser({userId : userId,token : token,typeOfuser:typeOfuser}); 
 
 },[])
   return (
@@ -41,7 +41,7 @@ useEffect(()=> {
      <Route path='/user' render={() => (user.token ? (<Redirect to='/' />) : (<UserAuth Setuser={Setuser}/>))}  />
      <Route path='/add-property'  render={(props) => (<AddProperty {...props} user={user}/>)}/>
      <Route path='/properties/:propertyId' render={(props) => (<PropertyDetail {...props} user={user}/>)}/>
-     <Route path='/' component={HomePage}/>
+     <Route path='/' render={(props) => (<HomePage {...props} user={user}/>)}/>
     </Switch>
     </div>
   );
