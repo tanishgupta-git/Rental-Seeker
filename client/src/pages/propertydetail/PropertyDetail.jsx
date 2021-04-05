@@ -6,7 +6,7 @@ import './propertyDetail.css';
 const PropertyDetail = ({match}) => {
 const [detail,Setdetail] = useState({imageUrl:""});
 useEffect(() => {
- fetch(`http://localhost:5000/properties/${match.params.propertyId}`).then(
+ fetch(`http://localhost:5000/properties/property/${match.params.propertyId}`).then(
      (res) => {
          return res.json()
      }

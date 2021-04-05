@@ -23,7 +23,7 @@ exports.getProperty =async (req,res,next) => {
     try {
     const property =await Property.findById(propertyId);
     res.status(200).json({
-        message : 'fetched Successfully',
+        message : 'Fetched Successfully',
         property : property
     })
    }   catch (err) {
@@ -34,6 +34,21 @@ exports.getProperty =async (req,res,next) => {
    }
 
 }
+
+exports.getMyProperties = async (req,res,next) => {
+    try {
+    const properties = await Property.find({host:req.userId});
+    res.status(200).json({
+     message : 'Fetched Succesfully',
+     properties:properties
+    })
+    } catch (err) {
+     if(! err.statusCode) {
+         err.statusCode = 500
+     }
+      next(err);
+    }
+ }
 
 exports.addProperty = async (req,res,next) => {
     const errors = validationResult(req);

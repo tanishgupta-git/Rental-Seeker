@@ -8,7 +8,7 @@ module.exports =async (req,res,next) => {
         throw err;
        }
    if(!host) {
-    const error = new Error('Not Host Account Find');
+    const error = new Error('No Host Account Find');
     error.statusCode = 401;
     throw error       
    }

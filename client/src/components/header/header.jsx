@@ -7,7 +7,8 @@ const Header = ({user,logoutHandler}) => {
     return (
         <nav className="header">
          <Link to='/' className='logo'>Rental Seeker</Link>
-          { user.typeOfuser==='Host' && <Link to='/add-property'>Add Property</Link>}
+          { user.typeOfuser==='Host' && <span><Link to='/add-property'>Add Property</Link> 
+          <Link to='/myproperties'>Your Properties</Link></span>}
          { 
         user.token ? 
          <button onClick={logoutHandler}>logout</button>:(
