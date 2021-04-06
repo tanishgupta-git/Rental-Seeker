@@ -138,3 +138,46 @@ exports.hostLogin = async (req,res,next) => {
         next(err);
       }
 }
+
+// function for getting the information about the profile for user
+exports.getUserProfile = async (req,res,next) => {
+  const userId = req.params.userId;
+
+  try {
+    let user = await User.findById(userId);
+    if(!user) {
+      const error = new Error('No user found.');
+      error.statusCode = 422;
+      return next(error); 
+    }
+    res.status(200).json({username:user.username,fullname:user.fullname,email:user.email,
+      profileImage:user.profileImage})
+    
+  } catch (err) {
+    if(! err.statusCode) {
+        err.statusCode = 500
+    }
+     next(err);
+   }
+}
+// function for getting the information about the profile for host
+exports.getHostProfile = async (req,res,next) => {
+  const hostId = req.params.hostId;
+
+  try {
+    let host = await Host.findById(hostId);
+    if(!host) {
+      const error = new Error('No host found.');
+      error.statusCode = 422;
+      return next(error); 
+    }
+    res.status(200).json({username:host.username,fullname:host.fullname,email:host.email,
+      profileImage:host.profileImage})
+    
+  } catch (err) {
+    if(! err.statusCode) {
+        err.statusCode = 500
+    }
+     next(err);
+   }
+}

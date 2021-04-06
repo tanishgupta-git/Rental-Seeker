@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 a {
-  color: black;
+  color: #000000;
   text-decoration: none;
 }
 code {

@@ -1,7 +1,7 @@
 .header {
     background-color: #1a1a1a;
-    display: flex;
     padding: 10px;
+    position: relative;
 }
 .header h1 {
     color: white;
@@ -15,4 +15,43 @@
 .logo {
     font-size: 1.4em;
     margin:0 20px;
+}
+
+.header__items{
+    list-style: none;
+    display: flex;
+    float:right;
+    margin: 0;
+}
+.header__item--icon {
+    color: #ffffff;
+    font-size: 2em;
+    cursor: pointer;
+    margin:0 20px;
+}  
+.header__popup {
+ list-style: none;
+ position:absolute;
+ width: 170px;
+ top: 45px;
+ right: 40px;
+ padding: 0;
+ background-color: #f2f2f2;
+ box-shadow: 4px 4px 2px rgba(0,0,0,0.12),-4px 0 2px rgba(0,0,0,0.14);
+}
+.header__popupItem button {
+     all:unset;
+}
+.header__popupItem a,.header__popupItem button{
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    color: #000000;
+    margin: 0;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+.header__popupItem a:hover,.header__popupItem button:hover{
+    background-color: #e6e6e6;
 }

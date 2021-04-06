@@ -4,6 +4,8 @@ const User = require('../models/user');
 const Host = require('../models/host');
 const router = express.Router();
 const authController = require('../controllers/auth');
+const isAuth = require('../middleware/isAuth');
+const isHost = require('../middleware/isHost');
 
 router.put('/user/signup',[
     body('email').isEmail().withMessage("Please enter a valid email").bail().custom((value,{ req }) => {
@@ -45,4 +47,6 @@ router.put('/host/signup',[
 ],authController.hostSignup);
 
 router.post('/host/login',authController.hostLogin);
-module.exports = router;
+router.get('/user/profile/:userId',isAuth,authController.getUserProfile);
+router.get('/host/profile/:hostId',isAuth,isHost,authController.getHostProfile);
+module.exports = router;    

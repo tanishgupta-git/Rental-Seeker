@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from 'react';
-import { Switch,Route, Redirect } from 'react-router';
+import React,{useState,useEffect, useCallback} from 'react';
+import { Switch,Route, Redirect,withRouter } from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header';
 import AddProperty from './pages/addProperty/addProperty';
@@ -8,16 +8,20 @@ import HomePage from './pages/homePage/homePage';
 import PropertyDetail from './pages/propertyDetail/propertyDetail.jsx';
 import HostAuth from './pages/hostAuth/hostAuth.jsx';
 import MyProperties from './pages/myProperties/myProperties';
+import ProfileUser from './pages/profileUser/profileUser';
+import ProfileHost from './pages/profileHost/profileHost';
 
-function App(){ 
+
+function App({history}){ 
  const [user,Setuser] = useState({token:"",userId:"",typeOfuser:""});
- const logoutHandler = () => {
+ const logoutHandler = useCallback(() => {
   Setuser({token: null});
   localStorage.removeItem('token');
   localStorage.removeItem('expiryDate');
   localStorage.removeItem('userId');
   localStorage.removeItem('typeOfuser');
-}
+  history.push('/')
+},[history])
 
 useEffect(()=> {
   const token =     localStorage.getItem('token');
@@ -33,20 +37,22 @@ useEffect(()=> {
   const typeOfuser = localStorage.getItem('typeOfuser');
   Setuser({userId : userId,token : token,typeOfuser:typeOfuser}); 
 
-},[])
+},[logoutHandler])
   return (
     <div className="App">
     <Header user={user} logoutHandler={logoutHandler}/>
     <Switch>
+    <Route exact path='/user/profile/:userId' render={ (props) => (<ProfileUser {...props} user={user}/> ) } />
+     <Route exact path='/host/profile/:hostId' render={ (props) => (<ProfileHost {...props} user={user}/> ) } />
      <Route path='/host' render={() => ( user.token ? (<Redirect to='/' />) : (<HostAuth Setuser={Setuser}/>))}/>
      <Route path='/user' render={() => (user.token ? (<Redirect to='/' />) : (<UserAuth Setuser={Setuser}/>))}  />
-     <Route path='/add-property'  render={(props) => (<AddProperty {...props} user={user}/>)}/>
-     <Route path='/myproperties'  render={(props) => (<MyProperties {...props} user={user}/>)}/>
-     <Route path='/properties/:propertyId' render={(props) => (<PropertyDetail {...props} user={user}/>)}/>
+     <Route exact path='/add-property'  render={(props) => (<AddProperty {...props} user={user}/>)}/>
+     <Route exact path='/myproperties'  render={(props) => (<MyProperties {...props} user={user}/>)}/>
+     <Route exact path='/properties/:propertyId' render={(props) => (<PropertyDetail {...props} user={user}/>)}/>
      <Route path='/' render={(props) => (<HomePage {...props} user={user}/>)}/>
     </Switch>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);
