@@ -9,6 +9,7 @@ const AddProperty = ({history,user}) => {
 const [title,Settitle] = useState('');
 const [image,Setimage] = useState('');
 const [price,Setprice] = useState('');
+const [location,Setlocation] = useState('');
 const [description,Setdescription] = useState('');
 const [error,Seterror] = useState('');
 const types = ['image/png','image/jpeg','image/jpg'];
@@ -40,13 +41,17 @@ const handleChange = (e) => {
 // function for handling the form
 const handleForm = (e) => {
   e.preventDefault();
-  if(!title && !image && !price && !description) {
+  if(!title && !image && !price && !location && !description) {
       Seterror('All Fileds Are Required')
       return;
   }
   console.log(image)
   if(title.length < 5){
     Seterror('Title Should Be Between 5 and 50 Characters');
+    return;
+  }
+  if(location.length < 5){
+    Seterror('Location Should Be Between 5 and 50 Characters');
     return;
   }
   if(Number(price) <= 0){
@@ -60,7 +65,8 @@ const handleForm = (e) => {
   const formData = new FormData();
   formData.append('title', title);
   formData.append('price', price);
-  formData.append('description',description)
+  formData.append('location',location);
+  formData.append('description',description);
   formData.append('image', image);
   fetch('http://localhost:5000/properties/add-property',{
     method : 'POST',
@@ -94,7 +100,9 @@ const handleForm = (e) => {
          <Input label="ImageUrl" type='file' name="imageUrl" handleChange={handleChange}/>
     
          <Input label="Price" type="text" name="price" value={price} handleChange={(e) => Setprice(e.target.value)}/>
+         <Input label="Location" type='text' name="location" handleChange={(e) => Setlocation(e.target.value)}/>
          <Textarea label="Description" name='description' value={description} handleChange={(e) => Setdescription(e.target.value)}/>
+    
          <Button />
        </form>
      </div>

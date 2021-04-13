@@ -10,7 +10,7 @@ import HostAuth from './pages/hostAuth/hostAuth.jsx';
 import MyProperties from './pages/myProperties/myProperties';
 import ProfileUser from './pages/profileUser/profileUser';
 import ProfileHost from './pages/profileHost/profileHost';
-
+import Search from './pages/search/search';
 
 function App({history}){ 
  const [user,Setuser] = useState({token:"",userId:"",typeOfuser:""});
@@ -52,12 +52,13 @@ useEffect(()=> {
      <Route path='/user' render={() => (user.token ? (<Redirect to='/' />) : (<UserAuth Setuser={Setuser}/>))}  />
      <Route exact path='/host/profile/:hostId' render={ (props) => (<ProfileHost {...props} user={user}/> ) } />
      <Route path='/host' render={() => ( user.token ? (<Redirect to='/' />) : (<HostAuth Setuser={Setuser}/>))}/>
+     <Route path='/search' render={ (props) => (<Search {...props} user={user}/>) } />
      <Route exact path='/add-property'  render={(props) => (<AddProperty {...props} user={user}/>)}/>
      <Route exact path='/myproperties'  render={(props) => (<MyProperties {...props} user={user}/>)}/>
      <Route exact path='/properties/:propertyId' render={(props) => (<PropertyDetail {...props} user={user}/>)}/>
      <Route path='/' render={(props) => (<HomePage {...props} user={user}/>)}/>
     </Switch>
-    </>
+    </> 
     }
     </div>
 

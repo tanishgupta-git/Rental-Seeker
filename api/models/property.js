@@ -19,6 +19,10 @@ const propertySchema = new Schema(
           type: String,
           required: true
         },
+        location: {
+          type : String,
+          require:true
+        },
         rating : {
            type : Number,
            default : 0

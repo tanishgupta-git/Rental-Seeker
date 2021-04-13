@@ -69,6 +69,7 @@ exports.addProperty = async (req,res,next) => {
         imageUrl : imageUrl,
         description : req.body.description,
         price : req.body.price,
+        location : req.body.location,
         host:req.userId
     });
    try {
@@ -87,6 +88,29 @@ exports.addProperty = async (req,res,next) => {
     }
      next(err);
    }
+}
+
+exports.getSearchProperty = async (req,res,next) => {
+    const location = req.params.location;
+    const searchProperties = [];
+    try {
+    const properties = await Property.find();
+    for (let i=0;i < properties.length;i++ ) {
+       if (properties[i].location.includes(location)) {
+           searchProperties.push(properties[i])
+       }
+    }
+    res.status(200).json({
+        message : 'Fetched Succesfully',
+        properties:searchProperties
+    })
+   } catch (err) {
+    if(! err.statusCode) {
+        err.statusCode = 500
+    }
+     next(err);
+   }
+
 }
 // function for clear image
 const clearImage = filePath => {

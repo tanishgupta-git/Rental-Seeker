@@ -1,14 +1,18 @@
 import React,{useState} from 'react';
 import  {Link } from 'react-router-dom';
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle,FaSearch } from "react-icons/fa";
 import './header.css';
 
 const Header = ({user,logoutHandler}) => {
     const [popUp,SetpopUp] = useState(false);
-
+    const [searchText,SetsearchText] = useState("");
     return (
         <nav className="header">
          <Link to='/' className='logo'>Rental Seeker</Link>
+         <form action={`/search`} method="GET">
+           <input className="header__input" type='text' name="location" value={searchText} onChange={(e) => SetsearchText(e.target.value)} placeholder='Search by Location'/>
+           <button className="header__button" type="submit"><FaSearch /></button>
+        </form>
          <ul className='header__items'>
           { user.typeOfuser==='Host' && 
           <>
