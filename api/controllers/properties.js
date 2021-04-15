@@ -1,7 +1,8 @@
 const Property = require('../models/property');
 const { validationResult } = require('express-validator/check');
 const Host = require('../models/host');
-
+const path = require('path');
+const fs = require('fs');
 exports.getProperties =async (req,res,next) => {
 
     try {

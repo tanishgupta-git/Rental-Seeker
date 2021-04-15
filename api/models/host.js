@@ -18,7 +18,7 @@ const hostSchema = new Schema({
         type:String,
         require:true
     },
-    profileImage:{
+    imageUrl:{
         type:String,
         default:""
     },

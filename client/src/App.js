@@ -11,6 +11,8 @@ import MyProperties from './pages/myProperties/myProperties';
 import ProfileUser from './pages/profileUser/profileUser';
 import ProfileHost from './pages/profileHost/profileHost';
 import Search from './pages/search/search';
+import EditProfileUser from './pages/editProfileuser/editProfileuser';
+import EditProfileHost from './pages/editProfileHost/editProfileHost';
 
 function App({history}){ 
  const [user,Setuser] = useState({token:"",userId:"",typeOfuser:""});
@@ -48,8 +50,10 @@ useEffect(()=> {
     <>
     <Header user={user} logoutHandler={logoutHandler}/>
     <Switch>
+    <Route  exact path='/user/profile/edit' render={ (props) => (<EditProfileUser {...props} user={user} />)} />
      <Route exact path='/user/profile/:userId' render={ (props) => (<ProfileUser {...props} user={user}/> ) } />
      <Route path='/user' render={() => (user.token ? (<Redirect to='/' />) : (<UserAuth Setuser={Setuser}/>))}  />
+     <Route exact path='/host/profile/edit' render={ (props) => (<EditProfileHost {...props} user={user}/> ) } />
      <Route exact path='/host/profile/:hostId' render={ (props) => (<ProfileHost {...props} user={user}/> ) } />
      <Route path='/host' render={() => ( user.token ? (<Redirect to='/' />) : (<HostAuth Setuser={Setuser}/>))}/>
      <Route path='/search' render={ (props) => (<Search {...props} user={user}/>) } />

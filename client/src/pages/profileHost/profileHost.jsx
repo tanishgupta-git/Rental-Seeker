@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import './profileHost.css';
 
 const ProfileHost = ({match,user}) => {
@@ -23,6 +24,9 @@ const ProfileHost = ({match,user}) => {
              loading ? <span>Loading ...</span> : 
              <div>
               <h1>{hostData.username}</h1>
+              <p>{hostData.fullname}</p>
+   
+              {user.userId === match.params.hostId && <Link to='/host/profile/edit'>Edit Profile</Link> }
              </div> 
          }
         </div>

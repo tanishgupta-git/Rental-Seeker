@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import './profileUser.css';
 
 const ProfileUser = ({match,user}) => {
@@ -23,6 +24,8 @@ const ProfileUser = ({match,user}) => {
              loading ? <span>Loading ...</span> : 
              <div>
               <h1>{userData.username}</h1>
+              <p>{userData.fullname}</p>
+             {user.userId === match.params.userId && <Link to='/user/profile/edit'>Edit Profile</Link> }
              </div> 
          }
         </div>
