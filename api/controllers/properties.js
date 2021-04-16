@@ -114,6 +114,89 @@ exports.getSearchProperty = async (req,res,next) => {
    }
 
 }
+
+//  function for deleting the property
+exports.deleteProperty = async (req,res,next) => {
+    const propertyId = req.params.propertyId;
+    try {
+    const property = await Property.findById(propertyId);
+
+    if (!property) {
+      const error = new Error('Could not find property.');
+      error.statusCode = 404;
+      return next(error);
+    }
+    if (property.host.toString() !== req.userId) {
+      const error = new Error('Not authorized!');
+      error.statusCode = 403;
+      throw error;
+    }
+    // Check logged in user
+    clearImage(property.imageUrl);
+    await Property.findByIdAndRemove(propertyId);
+
+    const host = await Host.findById(req.userId);
+    host.properties.pull(propertyId);
+    await host.save();
+    res.status(200).json({ message: 'Property Deleted Succesfully.' });
+  } catch (err) {
+    if(! err.statusCode) {
+        err.statusCode = 500
+    }
+     next(err);
+   }
+}
+
+// function for edit the property details
+exports.editProperty = async (req,res,next) => {
+    const propertyId = req.params.propertyId;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        clearImage(req.file.path.replace(/\\/g ,"/"));
+        const error = new Error('Validation failed,entered data is incorrect');
+        error.statusCode = 422;
+        return next(error);
+    }
+    let imageUrl = req.body.image;
+    if (req.file) {
+     imageUrl = req.file.path.replace(/\\/g ,"/");
+   }
+    if (!imageUrl) {
+        const error = new Error("No image provided");
+        error.statusCode = 422;
+        return next(error);
+    }
+
+  try {
+   const property = await Property.findById(propertyId);
+   if (!property) {
+    const error = new Error('No Property found.');
+    error.statusCode = 422;
+    return next(error);  
+   }
+   if (property.host._id.toString() !== req.userId) {
+    const error = new Error('Not authorized!');
+    error.statusCode = 403;
+    return next(error);
+  }
+   if (imageUrl !== property.imageUrl) {
+    clearImage(property.imageUrl);
+  }
+   property.title = req.body.title;
+   property.imageUrl = imageUrl;
+   property.description = req.body.description;
+   property.price = req.body.price;
+   property.location = req.body.location;
+   await property.save();
+   res.status(200).json({message:"Property Detail Updated Successfully."}) 
+  } catch (err) {
+    if(! err.statusCode) {
+        err.statusCode = 500
+    }
+     next(err);
+   }
+}
+
 // function for clear image
 const clearImage = filePath => {
     filePath = path.join(__dirname,'..',filePath);

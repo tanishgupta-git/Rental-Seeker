@@ -35,4 +35,11 @@ router.post('/add-property',multer({ storage : fileStorage,fileFilter:fileFilter
     body('location').trim().isLength({min:5,max:50}),
     body('description').trim().isLength({min:20,max:500})
 ],propertyController.addProperty);
+router.post('/property/:propertyId',multer({ storage : fileStorage,fileFilter:fileFilter}).single('image')
+,isAuth,isHost,[
+   body('title').trim().isLength({min:5,max:50}),
+   body('location').trim().isLength({min:5,max:50}),
+   body('description').trim().isLength({min:20,max:500})
+],propertyController.editProperty)
+router.delete('/property/:propertyId',isAuth,isHost,propertyController.deleteProperty)
 module.exports = router;

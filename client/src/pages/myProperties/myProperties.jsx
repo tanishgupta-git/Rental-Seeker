@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react';
+import MyProperty from '../../components/myProperty/myProperty';
 import './myProperties.css';
 
 const MyProperties = ({user}) => {
@@ -18,9 +19,10 @@ const MyProperties = ({user}) => {
     },[user])
    return (
        <div className='myProperties'>
+       <h1>Your Properties</h1>
          {
              properties.map( property => {
-              return (<span key={property._id}>{property.title}</span>)   
+              return (<MyProperty key={property._id} user={user} Setproperties={Setproperties} {...property}/>)   
              })
          }
        </div>

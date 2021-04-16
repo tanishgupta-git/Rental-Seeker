@@ -1,16 +1,16 @@
 import React,{useState,useEffect} from 'react';
-import { withRouter } from 'react-router-dom';
 import Button from '../../components/shared/button/button';
 import Input from '../../components/shared/input/input';
 import Textarea from '../../components/shared/textarea/textarea';
-import './addProperty.css';
+import './addEditProperty.css';
 
-const AddProperty = ({history,user}) => {
+const AddEditProperty = ({history,match,user}) => {
 const [title,Settitle] = useState('');
 const [image,Setimage] = useState('');
 const [price,Setprice] = useState('');
 const [location,Setlocation] = useState('');
 const [description,Setdescription] = useState('');
+const [editImageUrl,SeteditImageUrl] = useState('')
 const [error,Seterror] = useState('');
 const types = ['image/png','image/jpeg','image/jpg'];
 
@@ -21,7 +21,24 @@ useEffect(() => {
  if(user.typeOfuser !== 'Host'){
    history.push('/')
  }
-},[user,history])
+if (match.params.propertyId) {
+    fetch(`http://localhost:5000/properties/property/${match.params.propertyId}`).then(
+      (res) => {
+          return res.json()
+      }
+    ).then((resData) => {
+      Settitle(resData.property.title);
+      Setprice(resData.property.price);
+      Setlocation(resData.property.location);
+      Setdescription(resData.property.description);
+      SeteditImageUrl(resData.property.imageUrl);
+    }).catch(err => {
+      console.log(err);
+    })
+}
+},[user,history,match.params.propertyId])
+
+
 // function for handling the chnages in image
 const handleChange = (e) => {
   let selected = e.target.files[0];
@@ -38,6 +55,8 @@ const handleChange = (e) => {
      Seterror('Please select an image of type png,jpeg,jpg'); 
   }
  }
+
+
 // function for handling the form
 const handleForm = (e) => {
   e.preventDefault();
@@ -45,11 +64,10 @@ const handleForm = (e) => {
       Seterror('All Fileds Are Required')
       return;
   }
-  console.log(image)
-  // if(title.length < 5){
-  //   Seterror('Title Should Be Between 5 and 50 Characters');
-  //   return;
-  // }
+  if(title.length < 5){
+    Seterror('Title Should Be Between 5 and 50 Characters');
+    return;
+  }
   if(location.length < 5){
     Seterror('Location Should Be Between 5 and 50 Characters');
     return;
@@ -67,27 +85,60 @@ const handleForm = (e) => {
   formData.append('price', price);
   formData.append('location',location);
   formData.append('description',description);
-  formData.append('image', image);
-  fetch('http://localhost:5000/properties/add-property',{
-    method : 'POST',
-    body : formData,
-    headers : 
-    {
-        Authorization : 'Bearer ' + user.token         
-      } 
-  }).then(res => {
-    if (res.status !== 200) {
-      throw new Error('Failed to add Property.');
+
+
+  if (match.params.propertyId) {
+    if (!image) {
+      formData.append('image', editImageUrl);
+    }else{
+      formData.append('image', image);
     }
-    return res.json()}).then(
+    fetch(`http://localhost:5000/properties/property/${match.params.propertyId}`,{
+      method : 'POST',
+      body : formData,
+      headers : 
+      {
+          Authorization : 'Bearer ' + user.token         
+        } 
+    }).then(res => {
+      if (res.status !== 200) {
+        throw new Error('Failed to Edit Property.');
+      }
+      return res.json()
+    }).then(
+      
+      resData => {
     
-    resData => {
-      console.log(resData);
-      history.push('/');
-    }
-  ).catch(err => {
-    Seterror('Error From Server');
-  })
+        history.push('/myproperties');
+      }
+    ).catch(err => {
+      Seterror('Error From Server');
+    })
+
+  }else {
+      formData.append('image', image);
+      fetch('http://localhost:5000/properties/add-property',{
+        method : 'POST',
+        body : formData,
+        headers : 
+        {
+            Authorization : 'Bearer ' + user.token         
+          } 
+      }).then(res => {
+        if (res.status !== 200) {
+          throw new Error('Failed to add Property.');
+        }
+        return res.json()}).then(
+        
+        resData => {
+      
+          history.push('/');
+        }
+      ).catch(err => {
+        Seterror('Error From Server');
+      })
+
+}
 }
  return (
      <div className='centerForm'>
@@ -100,13 +151,13 @@ const handleForm = (e) => {
          <Input label="ImageUrl" type='file' name="imageUrl" handleChange={handleChange}/>
     
          <Input label="Price" type="text" name="price" value={price} handleChange={(e) => Setprice(e.target.value)}/>
-         <Input label="Location" type='text' name="location" handleChange={(e) => Setlocation(e.target.value)}/>
+         <Input label="Location" type='text' name="location" value={location} handleChange={(e) => Setlocation(e.target.value)}/>
          <Textarea label="Description" name='description' value={description} handleChange={(e) => Setdescription(e.target.value)}/>
-    
+         {editImageUrl && <div className="add-edit-existingimage"><p>Existing Image:</p><img src={`http://localhost:5000/`+editImageUrl} alt=""/> </div>}
          <Button />
        </form>
      </div>
  )
 }
 
-export default withRouter(AddProperty);
+export default AddEditProperty;

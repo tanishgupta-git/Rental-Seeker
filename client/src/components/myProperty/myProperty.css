@@ -1,0 +1,9 @@
+.myProperty {
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    border:1px solid #cccccc;
+    padding: 20px 10px;
+    align-items: center;
+    font-size: 1.2rem;
+}
