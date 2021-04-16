@@ -6,13 +6,26 @@
     justify-content: space-between;
     align-items: center;
 }
+.header__search {
+    position: relative;
+}
 .header__input {
-    padding: 10px;
+    padding: 15px 30px;
     border: none;
+    width: 250px;
+    border-radius: 30px;
+    outline: none;
+    font-size: 1rem;
 }
 .header__button {
+    position: absolute;
+    top:50%;
+    transform: translate(0%,-50%);
+    right: 10px;
     padding: 10px;
     border: none;
+    border-radius: 50%;
+    cursor: pointer;
 }
 .header h1 {
     color: white;

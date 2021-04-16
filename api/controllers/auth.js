@@ -168,6 +168,7 @@ exports.editUserProfile = async (req,res,next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
+    clearImage(req.file.path.replace(/\\/g ,"/"));
     const error = new Error('Validation failed, entered data is incorrect.');
     error.statusCode = 422;
     return next(error);
@@ -234,6 +235,7 @@ exports.getHostProfile = async (req,res,next) => {
 exports.editHostProfile = async (req,res,next) => {
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
+     clearImage(req.file.path.replace(/\\/g ,"/"));
      const error = new Error('Validation failed, entered data is incorrect.');
      error.statusCode = 422;
      return next(error);

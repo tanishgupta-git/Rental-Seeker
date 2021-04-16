@@ -71,17 +71,31 @@ const  handleChange = (e) => {
    }
 
     return (
-        <div className='editProfileuser'>
+        <div className='editProfile'>
          {
             loading ? "Loading..." : <>
-            <h1>Edit Profile</h1>
-            <p className='editProfileuser__error'>{error}</p>
-            <form onSubmit={handleSubmit}>
-                <p>{userData.username} </p>
+            <form className='editProfile__form' onSubmit={handleSubmit}>
+            <h1 className='editProfile__title'>Edit Profile</h1>
+            <p className='editProfile__error'>{error}</p>
+                <div className='editProfile__Readonlyinput'>
+                <span>Username:</span>
+                <p>{userData.username}</p> 
+                </div>
+                <div className='editProfile__Readonlyinput'>
+                <span>Email:</span>
                 <p>{userData.email}</p>
-                <p><input type="text" name="fullname" value={fullname} onChange={(e) => Setfullname(e.target.value)}/></p>
-                <p><input type="file"  name="image" onChange={handleChange}/></p>
-                <p><input type='submit' /></p>  
+                </div>
+                <div className='editProfile__input'>
+                <span>Fullname:</span>
+                <input type="text" name="fullname" value={fullname} onChange={(e) => Setfullname(e.target.value)}/>
+                </div>
+                <div className='editProfile__input'>
+                <span>Image:</span>
+                <input type="file"  name="image" onChange={handleChange}/>
+                </div>
+                <div className='editProfile__submit'>
+                 <input type='submit' />
+                </div>  
             </form>
             </>
          }

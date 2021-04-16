@@ -46,10 +46,10 @@ const handleForm = (e) => {
       return;
   }
   console.log(image)
-  if(title.length < 5){
-    Seterror('Title Should Be Between 5 and 50 Characters');
-    return;
-  }
+  // if(title.length < 5){
+  //   Seterror('Title Should Be Between 5 and 50 Characters');
+  //   return;
+  // }
   if(location.length < 5){
     Seterror('Location Should Be Between 5 and 50 Characters');
     return;

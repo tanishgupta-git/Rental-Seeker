@@ -15,9 +15,9 @@ useEffect(() => {
  })
 },[match.params.propertyId])
  return (
-     <div className="property-detail">
-        <h1>{detail.title}</h1>
-       {detail.imageUrl && <img src={"http://localhost:5000/" + detail.imageUrl} alt=""/>}
+     <div className="propertyDetail">
+        <h1 className='propertyDetail__title'>{detail.title}</h1>
+       {detail.imageUrl && <img className='propertyDetail__image' src={"http://localhost:5000/" + detail.imageUrl} alt=""/>}
         <h2>{detail.price}</h2>
      </div>
  )

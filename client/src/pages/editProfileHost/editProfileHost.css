@@ -1,0 +1,21 @@
+.editProfile {
+    width: 90%;
+    margin: 30px auto;
+    max-width: 1000px;
+}
+.editProfile__form {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.editProfile__input input[type='text']{
+    display: block;
+    padding: 10px;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    width: 100%;
+}
+.editProfile__input input[type='file'] {
+    display: block;
+    margin: 10px 0;
+}
