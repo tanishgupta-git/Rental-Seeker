@@ -1,7 +1,7 @@
 .card {
     width: 400px;
     display: inline-block;
-    margin: 0 30px;
+    margin: 30px;
     border:1px solid #eee;
     cursor: pointer;
 }

@@ -16,6 +16,8 @@ const ProfileHost = ({match,user}) => {
       .then(resData => {
           SethostData(resData);
           Setloading(false);
+      }).catch(err => {
+          console.log(err)
       })
     },[match.params.hostId,user])
     return (

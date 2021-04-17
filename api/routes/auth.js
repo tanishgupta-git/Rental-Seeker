@@ -78,5 +78,5 @@ router.post('/host/profile/:hostId',isAuth,isHost,
       );
     
 router.get('/user/profile/:userId',isAuth,authController.getUserProfile);
-router.get('/host/profile/:hostId',isAuth,isHost,authController.getHostProfile);
+router.get('/host/profile/:hostId',isAuth,authController.getHostProfile);
 module.exports = router;

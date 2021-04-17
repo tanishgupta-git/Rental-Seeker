@@ -10,7 +10,8 @@ const Search = ({location}) => {
         const params = QueryString.parse(location.search);
         Setloading(true);
         if (!params.location) {
-            console.log("blank search")
+            Setloading(false);
+            Setproperties([]);
             return;
         }
         fetch(`http://localhost:5000/properties/search/${params.location}`).then((resData) => {
