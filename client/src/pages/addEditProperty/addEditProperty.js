@@ -35,6 +35,12 @@ if (match.params.propertyId) {
     }).catch(err => {
       console.log(err);
     })
+}else {
+  Settitle('');
+  Setprice('');
+  Setlocation('');
+  Setdescription('');
+  SeteditImageUrl('');
 }
 },[user,history,match.params.propertyId])
 

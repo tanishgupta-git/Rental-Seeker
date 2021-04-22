@@ -31,7 +31,16 @@ const Search = ({location}) => {
               loading ? "Loading..." : (
                   properties.length !== 0 ? ( properties.map( property => <Card key={property._id} {...property} /> )) 
                   :
-                   <span>No Search Result Found.</span>
+                   <div className='search__notfound'>
+                        <h2>No Search Result Found.</h2>
+                        <h3>Here are few tips that might help</h3>
+                        <ul>
+                            <li>Check the spelling of your keyword</li>
+                            <li>Try alternate words or selections</li>
+                            <li>Try entering a more generic keyword</li>
+                            <li>Try entering fewer keywords</li>
+                        </ul>   
+                   </div>
               )
           }
         </div>
